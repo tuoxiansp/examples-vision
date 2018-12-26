@@ -54,17 +54,17 @@ class StateHandler {
 
         this.knobs = {
             ...this.knobs,
-            [knob.name]: knob,
+            [knob.key || knob.name]: knob,
         }
     }
 
-    public removeKnob = (name: string) => {
+    public removeKnob = (key: string) => {
         if (this.knobSubscriber) {
-            this.knobSubscriber(name)
+            this.knobSubscriber(key)
         }
 
         if (this.knobs) {
-            delete this.knobs[name]
+            delete this.knobs[key]
         }
     }
 

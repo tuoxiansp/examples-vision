@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Editor, View } from '@visionjs/core'
+import wrapper from './wrapper'
 
 class Text extends Component {
     constructor(...args) {
@@ -46,8 +47,4 @@ class Text extends Component {
     }
 }
 
-const TextWrapper = ({ readonly, requestUpdateProps, props }) => (
-    <Text {...{ readonly, requestUpdateProps, ...props }} />
-)
-
-export default TextWrapper
+export default wrapper(Text)

@@ -11,6 +11,7 @@ import {
     useTimeMachine,
     useColorKnob,
     useObjectKnob,
+    useTextKnob,
 } from '../lib'
 import useChartKnob from './custom-chart-knob'
 
@@ -50,11 +51,18 @@ function Icon() {
     const [ colorValue ] = useColorKnob('Color', 'wheat')
     const [ obj, setObj ] = useObjectKnob('Object', {})
     const timeMachineValue = useTimeMachine('Color timemachine', colorValue)
+    const [ name ] = useTextKnob('Name', 'MR.2')
+
     useChartKnob('Chart', timeMachineValue)
 
     return (
         <Tile style={{ borderWidth, borderStyle: 'solid', borderColor: 'white' }}>
-            {visibility && <Ghost size={rangeKnobValue} mood={mood} color={timeMachineValue} />}
+            {visibility && (
+                <div>
+                    <Ghost size={rangeKnobValue} mood={mood} color={timeMachineValue} />
+                    <div>{name}</div>
+                </div>
+            )}
         </Tile>
     )
 }

@@ -3,7 +3,9 @@
     "version": "0.2.0",
     "main": "lib/index.js",
     "description": "",
-    "dependencies": {},
+    "dependencies": {
+        "react-draggable": "^3.1.1"
+    },
     "scripts": {
         "start": "webpack-dev-server --env.development --config ./config/webpack.dev.config.js",
         "test": "jest",

@@ -27,10 +27,14 @@ export default class Modifier extends Component {
         }
     }
 
-    handleMouseDown = (event) => {
-        if (this.props.onMouseDown instanceof Function) {
-            this.props.onMouseDown(event)
+    handleOutClick = (event) => {
+        if (!this.dom.contains(event.target)) {
+            this.props.onMouseOut && this.props.onMouseOut(event)
         }
+    }
+
+    handleClick = (event) => {
+        this.props.onMouseDown && this.props.onMouseDown(event)
     }
 
     componentDidMount = () => {
@@ -39,7 +43,8 @@ export default class Modifier extends Component {
         if (this.dom) {
             this.dom.addEventListener('mouseenter', this.handleMouseEnter)
             this.dom.addEventListener('mouseleave', this.handleMouseLeave)
-            this.dom.addEventListener('mousedown', this.handleMouseDown)
+            document.querySelector('#root').addEventListener('click', this.handleOutClick)
+            this.dom.addEventListener('click', this.handleClick)
         }
     }
 
@@ -47,7 +52,8 @@ export default class Modifier extends Component {
         if (this.dom) {
             this.dom.removeEventListener('mouseenter', this.handleMouseEnter)
             this.dom.removeEventListener('mouseleave', this.handleMouseLeave)
-            this.dom.removeEventListener('mousedown', this.handleMouseDown)
+            document.querySelector('#root').removeEventListener('click', this.handleClick)
+            this.dom.removeEventListener('click', this.handleClick)
         }
     }
 
@@ -57,14 +63,14 @@ export default class Modifier extends Component {
             if (this.dom) {
                 this.dom.removeEventListener('mouseenter', this.handleMouseEnter)
                 this.dom.removeEventListener('mouseleave', this.handleMouseLeave)
-                this.dom.removeEventListener('mousedown', this.handleMouseDown)
+                this.dom.removeEventListener('click', this.handleClick)
             }
             this.dom = dom
             this.forceUpdate()
             if (this.dom) {
                 this.dom.addEventListener('mouseenter', this.handleMouseEnter)
                 this.dom.addEventListener('mouseleave', this.handleMouseLeave)
-                this.dom.addEventListener('mousedown', this.handleMouseDown)
+                this.dom.addEventListener('click', this.handleClick)
             }
         }
     }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import styled from 'styled-components'
 import { haveKnobs, addKnobSubscriber, getKnobs, getKnobRenderer } from '../state-handler'
 
@@ -20,10 +20,12 @@ export default function Knobs() {
                     return { ...previousKnobs }
                 })
             } else {
-                setKnobs((previousKnobs: any) => ({
-                    ...previousKnobs,
-                    ...{ [knob.name]: knob },
-                }))
+                setKnobs((previousKnobs: any) => {
+                    return {
+                        ...previousKnobs,
+                        ...{ [knob.key || knob.name]: knob },
+                    }
+                })
             }
         })
     }, [])
@@ -36,7 +38,7 @@ export default function Knobs() {
         <Container>
             {Object.entries(knobs).map(([ name, knob ]: any) => {
                 const Component = getKnobRenderer(knob.type)
-                return <Component {...knob} />
+                return <Component key={name} {...knob} />
             })}
         </Container>
     )

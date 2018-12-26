@@ -67,10 +67,14 @@ const initCompositor = (maps = []) =>
                                                     hovered: -1,
                                                 })
                                             }}
-                                            onMouseDown={() => {
+                                            onMouseDown={(event) => {
+                                                event.stopPropagation()
                                                 const next = focused + 1
                                                 this.setState({ focused: next, focusedIndex: index })
                                                 operate('focused', next)
+                                            }}
+                                            onMouseOut={() => {
+                                                operate('focused', focused + 1)
                                             }}
                                             surface={childs[index]}
                                         >
@@ -109,17 +113,18 @@ const initCompositor = (maps = []) =>
                                                                         Copy
                                                                     </button>
                                                                     <Popup trigger={<button>Insert</button>}>
-                                                                        {maps.map(([ text, value ]) => (
-                                                                            <button
-                                                                                onClick={insert.bind(
-                                                                                    null,
-                                                                                    index,
-                                                                                    value
-                                                                                )}
-                                                                            >
-                                                                                {text}
-                                                                            </button>
-                                                                        ))}
+                                                                        {maps.map(([ text, value ]) => {
+                                                                            return (
+                                                                                <button
+                                                                                    onClick={(event) => {
+                                                                                        event.stopPropagation()
+                                                                                        insert(index, value)
+                                                                                    }}
+                                                                                >
+                                                                                    {text}
+                                                                                </button>
+                                                                            )
+                                                                        })}
                                                                     </Popup>
                                                                 </div>
                                                             )}
