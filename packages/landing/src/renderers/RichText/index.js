@@ -99,6 +99,7 @@ class RichTextExample extends React.Component {
                     </Toolbar>
                 )}
                 <Editor
+                    readOnly={this.props.readonly}
                     spellCheck
                     autoFocus
                     placeholder="Enter some rich text..."

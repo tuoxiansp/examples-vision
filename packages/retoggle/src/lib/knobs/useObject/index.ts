@@ -1,32 +1,28 @@
-import { useState, useEffect } from "react";
-import {
-  setKnob,
-  removeKnob,
-  addKnobRenderer
-} from "../../inspector/state-handler";
-import Component from "./object";
+import { useState, useEffect } from 'react'
+import { setKnob, removeKnob, addKnobRenderer } from '../../inspector/state-handler'
+// import Component from "./object";
 
-addKnobRenderer("object", Component);
+addKnobRenderer('object', () => null)
 
 export default function useObjectKnob(name: string, initialValue = {}) {
-  const [value, setValue] = useState(initialValue);
-  useEffect(
-    () => {
-      setKnob({
-        name,
-        type: "object",
-        value,
-        onChange: (value: number) => {
-          setValue(value);
-        }
-      });
-    },
-    [value]
-  );
+    const [ value, setValue ] = useState(initialValue)
+    useEffect(
+        () => {
+            setKnob({
+                name,
+                type: 'object',
+                value,
+                onChange: (value: number) => {
+                    setValue(value)
+                },
+            })
+        },
+        [ value ]
+    )
 
-  useEffect(() => {
-    return () => removeKnob(name);
-  }, []);
+    useEffect(() => {
+        return () => removeKnob(name)
+    }, [])
 
-  return [value, setValue];
+    return [ value, setValue ]
 }

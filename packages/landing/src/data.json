@@ -1,0 +1,46 @@
+{
+    "root": {
+        "id": "hero",
+        "nodes": [
+            {
+                "anchors": {
+                    "buttons": {
+                        "id": "buttons",
+                        "nodes": [
+                            {},
+                            {
+                                "props": {
+                                    "inverse": true
+                                },
+                                "anchors": {
+                                    "button": {
+                                        "id": "button",
+                                        "nodes": [
+                                            {
+                                                "anchors": {
+                                                    "btn-text": {
+                                                        "id": "btn-text",
+                                                        "nodes": [
+                                                            {
+                                                                "props": {
+                                                                    "content": "vestibulum porta"
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                "props": {
+                    "background image": "https://images.unsplash.com/photo-1544608642-b62dc8911439?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1629&q=80"
+                }
+            }
+        ]
+    }
+}

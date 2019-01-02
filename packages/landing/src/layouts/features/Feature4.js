@@ -1,160 +1,94 @@
 import React from 'react'
+import { View } from '@visionjs/core'
 
-const Feature4 = () => {
+import Text from '../../renderers/Text'
+
+import Button from '../components/Button'
+
+import wrapper from '../../lib/knobs/wrapper'
+
+const useStyleBySize = [ 'one_half', 'one_half', 'one_half', 'one_third', 'one_quarter' ]
+
+const icons = [ 'twitter', 'linkedin', 'google-plus', 'vk' ]
+
+const Feature4 = ({ useText }) => {
+    const image = useText('background image', 'images/demo/backgrounds/03.png')
+
     return (
         <div
             className="wrapper row2 bgded overlay"
             style={{
-                backgroundImage: `url('images/demo/backgrounds/03.png')`,
+                backgroundImage: `url(${image})`,
             }}
         >
             <section className="hoc container clear">
                 <div className="sectiontitle">
-                    <h6 className="heading">Sociis natoque penatibus et</h6>
-                    <p>Magnis dis parturient montes nascetur ridiculus mus sed in dui</p>
+                    <h6 className="heading">
+                        <View id="heading" render={Text} />
+                    </h6>
+                    <p>
+                        <View id="desc" render={Text} />
+                    </p>
                 </div>
                 <div className="group team">
-                    <figure className="one_quarter first">
-                        <a className="imgover" href="#">
-                            <img src="images/demo/320x320.png" alt="" />
-                        </a>
-                        <figcaption>
-                            <h6 className="heading">A. Doe</h6>
-                            <em>Director</em>
-                            <footer>
-                                <ul className="faico clear">
-                                    <li>
-                                        <a className="faicon-twitter" href="#">
-                                            <i className="fa fa-twitter" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="faicon-linkedin" href="#">
-                                            <i className="fa fa-linkedin" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="faicon-google-plus" href="#">
-                                            <i className="fa fa-google-plus" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="faicon-vk" href="#">
-                                            <i className="fa fa-vk" />
-                                        </a>
-                                    </li>
-                                </ul>
-                            </footer>
-                        </figcaption>
-                    </figure>
-                    <figure className="one_quarter">
-                        <a className="imgover" href="#">
-                            <img src="images/demo/320x320.png" alt="" />
-                        </a>
-                        <figcaption>
-                            <h6 className="heading">B. Doe</h6>
-                            <em>Chairman</em>
-                            <footer>
-                                <ul className="faico clear">
-                                    <li>
-                                        <a className="faicon-twitter" href="#">
-                                            <i className="fa fa-twitter" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="faicon-linkedin" href="#">
-                                            <i className="fa fa-linkedin" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="faicon-google-plus" href="#">
-                                            <i className="fa fa-google-plus" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="faicon-vk" href="#">
-                                            <i className="fa fa-vk" />
-                                        </a>
-                                    </li>
-                                </ul>
-                            </footer>
-                        </figcaption>
-                    </figure>
-                    <figure className="one_quarter">
-                        <a className="imgover" href="#">
-                            <img src="images/demo/320x320.png" alt="" />
-                        </a>
-                        <figcaption>
-                            <h6 className="heading">C. Doe</h6>
-                            <em>Head of Design</em>
-                            <footer>
-                                <ul className="faico clear">
-                                    <li>
-                                        <a className="faicon-twitter" href="#">
-                                            <i className="fa fa-twitter" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="faicon-linkedin" href="#">
-                                            <i className="fa fa-linkedin" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="faicon-google-plus" href="#">
-                                            <i className="fa fa-google-plus" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="faicon-vk" href="#">
-                                            <i className="fa fa-vk" />
-                                        </a>
-                                    </li>
-                                </ul>
-                            </footer>
-                        </figcaption>
-                    </figure>
-                    <figure className="one_quarter">
-                        <a className="imgover" href="#">
-                            <img src="images/demo/320x320.png" alt="" />
-                        </a>
-                        <figcaption>
-                            <h6 className="heading">D. Doe</h6>
-                            <em>Head of Marketing</em>
-                            <footer>
-                                <ul className="faico clear">
-                                    <li>
-                                        <a className="faicon-twitter" href="#">
-                                            <i className="fa fa-twitter" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="faicon-linkedin" href="#">
-                                            <i className="fa fa-linkedin" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="faicon-google-plus" href="#">
-                                            <i className="fa fa-google-plus" />
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a className="faicon-vk" href="#">
-                                            <i className="fa fa-vk" />
-                                        </a>
-                                    </li>
-                                </ul>
-                            </footer>
-                        </figcaption>
-                    </figure>
+                    <View
+                        id="features"
+                        render={wrapper(({ index, size, useText }) => {
+                            const image = useText('image', 'images/demo/320x320.png')
+
+                            return (
+                                <figure className={`${useStyleBySize[size]} ${index === 0 ? 'first' : ''}`}>
+                                    <a className="imgover">
+                                        <img src={image} alt="" />
+                                    </a>
+                                    <figcaption>
+                                        <h6 className="heading">
+                                            <View id="name" render={Text} />
+                                        </h6>
+                                        <em>
+                                            <View id="title" render={Text} />
+                                        </em>
+                                        <footer>
+                                            <ul className="faico clear">
+                                                <View
+                                                    id="socials"
+                                                    render={wrapper(({ useSelect }) => {
+                                                        const icon = useSelect('social', 'linkedin', { options: icons })
+
+                                                        return (
+                                                            <li>
+                                                                <a className={`faicon-${icon}`}>
+                                                                    <i className={`fa fa-${icon}`} />
+                                                                </a>
+                                                            </li>
+                                                        )
+                                                    })}
+                                                />
+                                            </ul>
+                                        </footer>
+                                    </figcaption>
+                                </figure>
+                            )
+                        })}
+                    />
                 </div>
                 <footer className="center">
-                    <a className="btn" href="#">
-                        Tincidunt elementum &raquo;
-                    </a>
+                    <ul className="nospace inline pushright">
+                        <View
+                            id="buttons"
+                            render={(context) => {
+                                return (
+                                    <li>
+                                        <View Compositor={null} id="buttons" render={() => Button(context)} />
+                                    </li>
+                                )
+                            }}
+                        />
+                    </ul>
                 </footer>
             </section>
         </div>
     )
 }
 
-export default Feature4
+export default wrapper(Feature4)

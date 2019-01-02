@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { setKnob, removeKnob } from 'retoggle'
+import count from '../../lib/count'
+
+const uniq = count
 
 const knobs = [ 'boolean', 'color', 'number', 'object', 'range', 'ranges', 'select', 'text' ]
 
@@ -8,6 +11,7 @@ const Comp = ({ context, renderer }) => {
     const knobsFnMap = {}
 
     const [ names, setNames ] = useState(new Set())
+    const [ symbol ] = useState(uniq())
 
     useEffect(() => {
         return () => {
@@ -22,7 +26,7 @@ const Comp = ({ context, renderer }) => {
 
         knobsFnMap[fnName] = (name, initial, options) => {
             const value = props[name] || initial
-            const key = name + index + renderer.toString() + context.toString()
+            const key = name + index + symbol
 
             if (!focused) {
                 removeKnob(key)
