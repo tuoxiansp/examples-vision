@@ -26,24 +26,26 @@ const Comp = ({ context, renderer }) => {
 
         knobsFnMap[fnName] = (name, initial, options) => {
             const value = props[name] || initial
-            const key = name + index + symbol
+            if (!readonly) {
+                const key = name + index + symbol
 
-            if (!focused) {
-                removeKnob(key)
-            } else {
-                setKnob({
-                    key,
-                    name,
-                    type,
-                    value,
-                    ...options,
-                    onChange(value) {
-                        requestUpdateProps({ [name]: value })
-                    },
-                })
+                if (!focused) {
+                    removeKnob(key)
+                } else {
+                    setKnob({
+                        key,
+                        name,
+                        type,
+                        value,
+                        ...options,
+                        onChange(value) {
+                            requestUpdateProps({ [name]: value })
+                        },
+                    })
 
-                if (!names.has(key)) {
-                    setNames(names.add(key))
+                    if (!names.has(key)) {
+                        setNames(names.add(key))
+                    }
                 }
             }
 
@@ -58,8 +60,31 @@ const Comp = ({ context, renderer }) => {
     return renderer(context)
 }
 
+const ReadonlyComp = ({ context, renderer }) => {
+    const { props, focused, requestUpdateProps, readonly, index } = context
+    const knobsFnMap = {}
+
+    knobs.forEach((type) => {
+        const fnName = 'use' + type[0].toUpperCase() + type.slice(1)
+
+        knobsFnMap[fnName] = (name, initial, options) => {
+            return props[name] || initial
+        }
+    })
+
+    Object.assign(context, {
+        ...knobsFnMap,
+    })
+
+    return renderer(context)
+}
+
 const wrapper = (renderer) => (context) => {
-    return <Comp key={renderer} renderer={renderer} context={context} />
+    return context.readonly ? (
+        <ReadonlyComp renderer={renderer} context={context} />
+    ) : (
+        <Comp key={renderer} renderer={renderer} context={context} />
+    )
 }
 
 export default wrapper

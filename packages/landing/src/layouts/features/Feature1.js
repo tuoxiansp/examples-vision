@@ -9,7 +9,7 @@ import Button from '../components/Button'
 
 const Feature1 = ({ useText, useBoolean }) => {
     const image = useText('image url', 'images/demo/480x360.png')
-    const inverse = useBoolean('wrap', false)
+    const inverse = useBoolean('swap', false)
 
     return (
         <div className="wrapper row3">
@@ -26,7 +26,7 @@ const Feature1 = ({ useText, useBoolean }) => {
                     {inverse ? (
                         <Fragment>
                             <div className="one_half first">
-                                <a className="imgover" href="#">
+                                <a className="imgover">
                                     <img src={image} alt="" />
                                 </a>
                             </div>
@@ -46,7 +46,7 @@ const Feature1 = ({ useText, useBoolean }) => {
                                 </footer>
                             </div>
                             <div className="one_half">
-                                <a className="imgover" href="#">
+                                <a className="imgover">
                                     <img src={image} alt="" />
                                 </a>
                             </div>

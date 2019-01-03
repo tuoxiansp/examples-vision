@@ -39,7 +39,15 @@ class RichTextExample extends React.Component {
    */
 
     state = {
-        value: Value.fromJSON(initialValue),
+        value: (this.props.value && Value.fromJSON({ document: this.props.value })) || Value.fromJSON(initialValue),
+    }
+
+    constructor(...args) {
+        super(...args)
+
+        this.requestUpdate = () => {
+            this.props.requestUpdateProps({ value: this.state.value.document.toJSON() })
+        }
     }
 
     /**
@@ -218,8 +226,11 @@ class RichTextExample extends React.Component {
    */
 
     onChange = ({ value }) => {
-        this.setState({ value })
-        this.props.requestUpdateProps({ value })
+        if (value.document === this.state.value.document) {
+            this.setState({ value })
+        } else {
+            this.setState({ value }, this.requestUpdate)
+        }
     }
 
     /**
@@ -310,4 +321,6 @@ class RichTextExample extends React.Component {
  * Export.
  */
 
-export default (context) => <RichTextExample {...context} />
+export default (context) => (
+    <RichTextExample requestUpdateProps={context.requestUpdateProps} readonly={context.readonly} {...context.props} />
+)

@@ -3,11 +3,12 @@ import { Editor as VEditor, Data, unstable_Registry as Registry } from '@visionj
 import { Inspector, useBooleanKnob, setKnob, removeKnob } from 'retoggle'
 import Text from './renderers/Text'
 import initCompositor from './compositors/Compositor'
+import initial from './data.json'
 
 let globalData = null
 
 window.printData = () => {
-    console.log(globalData)
+    console.log(JSON.stringify(globalData))
 }
 
 const r = new Registry()
@@ -42,7 +43,7 @@ const Compositor = initCompositor([ [ 'Text', 'text' ], [ 'Label', 'label' ] ])
 
 const Editor = (props) => {
     const [ readonly ] = useBooleanKnob('Readonly', false)
-    const [ data, setData ] = useState(new Data())
+    const [ data, setData ] = useState(new Data(initial))
     const [ range, setRange ] = useRangeKnob('Timemachine', {
         min: 0,
         max: data.undoable + data.redoable,
@@ -70,7 +71,6 @@ const Editor = (props) => {
         [ range ]
     )
 
-    // useLog('Data', data.value)
     globalData = data.value
 
     return (

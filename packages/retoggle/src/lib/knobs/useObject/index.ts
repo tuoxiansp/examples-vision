@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { setKnob, removeKnob, addKnobRenderer } from '../../inspector/state-handler'
-// import Component from "./object";
+import Component from './object'
 
-addKnobRenderer('object', () => null)
+addKnobRenderer('object', Component)
 
 export default function useObjectKnob(name: string, initialValue = {}) {
     const [ value, setValue ] = useState(initialValue)
